@@ -8,32 +8,32 @@ import java.util.List;
  */
 public class PS22_LC25_ReverseInKgroup {
 
-	static Node reverseKGroup(Node head, int k) {
+	static ListNode reverseKGroup(ListNode head, int k) {
         if (head == null) return null;
         
-        Node dummy = new Node(0);
+        ListNode dummy = new ListNode(0);
         dummy.next = head;
         
-        Node groupPrev = dummy;
+        ListNode groupPrev = dummy;
         
         while (true) {
-        	Node kthNode = getKthNode(groupPrev, k);
+        	ListNode kthNode = getKthNode(groupPrev, k);
         	if (kthNode == null)	break;
         	
-        	Node groupNext = kthNode.next;
+        	ListNode groupNext = kthNode.next;
         	
         	// reverse group
-        	Node prev = groupNext;
-        	Node current = groupPrev.next;
+        	ListNode prev = groupNext;
+        	ListNode current = groupPrev.next;
         	
         	while (current != groupNext) {
-        		Node temp = current.next;
+        		ListNode temp = current.next;
         		current.next = prev;
         		prev = current;
         		current = temp;
         	}
         	
-        	Node temp = groupPrev.next;
+        	ListNode temp = groupPrev.next;
         	groupPrev.next = kthNode;
         	groupPrev = temp;
         }
@@ -42,7 +42,7 @@ public class PS22_LC25_ReverseInKgroup {
 		return dummy.next;
     }
 	
-	private static Node getKthNode(Node groupPrev, int k) {
+	private static ListNode getKthNode(ListNode groupPrev, int k) {
 		int i = 0;
 		while (groupPrev != null && i < k) {
 			groupPrev = groupPrev.next;
@@ -53,26 +53,26 @@ public class PS22_LC25_ReverseInKgroup {
 	}
 
 	public static void main(String[] args) {
-		Node head1 = createLL(List.of(1, 2, 3));
+		ListNode head1 = createLL(List.of(1, 2, 3));
 		traverse(head1);
 		System.out.println();
-		Node rev = reverseKGroup(head1, 2);
+		ListNode rev = reverseKGroup(head1, 2);
 		traverse(rev);
 	}
 	
-	static void traverse(Node head) {
+	static void traverse(ListNode head) {
 		if (head != null) {
 			System.out.print(head.val + " ");
 			traverse(head.next);
 		}		
 	}
 	
-	static Node createLL(List<Integer> list) {
+	static ListNode createLL(List<Integer> list) {
 		
-		Node head = new Node(list.get(0));
-		Node current = head;
+		ListNode head = new ListNode(list.get(0));
+		ListNode current = head;
 		for (int i = 1; i < list.size(); i++) {
-			current.next = new Node(list.get(i));
+			current.next = new ListNode(list.get(i));
 			current = current.next;
 		}
 		
