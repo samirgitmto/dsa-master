@@ -23,10 +23,10 @@ import java.util.Queue;
 public class PS07_LC102_BTLevelOrderTraversal {
 
 	// can be improved by preventing null insertion in queue
-	static List<List<Integer>> levelOrder(Node root) {
+	static List<List<Integer>> levelOrder(TreeNode root) {
         if (root == null)	return null;
         
-        Queue<Node> queue = new LinkedList<Node>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
 //        int level = 0;
         
@@ -37,7 +37,7 @@ public class PS07_LC102_BTLevelOrderTraversal {
         	List<Integer> levelNodes = new ArrayList<Integer>();
         	int i = 0;
         	while (i < levelSize) {
-        		Node polled = queue.poll();
+        		TreeNode polled = queue.poll();
         		if (polled != null) {
         			queue.offer(polled.left);
         			queue.offer(polled.right);
@@ -55,21 +55,21 @@ public class PS07_LC102_BTLevelOrderTraversal {
 	}
 	
 	// not efficient
-	static List<List<Integer>> levelOrderV1(Node root) {
+	static List<List<Integer>> levelOrderV1(TreeNode root) {
         if (root == null)	return null;
         
-        Queue<Node> queue = new LinkedList<Node>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
 //        int level = 0;
         
         List<List<Integer>> res = new ArrayList<List<Integer>>();        
         while (!queue.isEmpty()) {
         	List<Integer> levelNodes = new ArrayList<Integer>();
-        	Queue<Node> nextLevelQueue = new LinkedList<Node>();
+        	Queue<TreeNode> nextLevelQueue = new LinkedList<TreeNode>();
         	int levelSize = queue.size();
         	int i = 0;
         	while (i<levelSize) {
-        		Node polled = queue.poll();
+        		TreeNode polled = queue.poll();
         		if (polled != null) {
         			levelNodes.add(polled.val);
         			nextLevelQueue.offer(polled.left);
@@ -85,14 +85,14 @@ public class PS07_LC102_BTLevelOrderTraversal {
 		return res;
     }
 	
-	static void levelOrderTraversal(Node root) {
+	static void levelOrderTraversal(TreeNode root) {
 		if (root == null)	return;
 		
-		Queue<Node> queue = new ArrayDeque<Node>();
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
 		queue.offer(root);
 		
 		while (!queue.isEmpty()) {
-			Node current = queue.poll();
+			TreeNode current = queue.poll();
 			System.out.print(current.val + " ");
 			if (current.left != null) {
 				queue.offer(current.left);
@@ -103,10 +103,10 @@ public class PS07_LC102_BTLevelOrderTraversal {
 		}
 		System.out.println();
 	}
-	static void levelOrderTraversalV1(Node root) {
+	static void levelOrderTraversalV1(TreeNode root) {
 		if (root == null)	return;
 		
-		Queue<Node> queue = new ArrayDeque<Node>();
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
 		System.out.print(root.val + " ");
 		queue.offer(root);
 		
@@ -125,13 +125,13 @@ public class PS07_LC102_BTLevelOrderTraversal {
 	}
 	
 	public static void main(String[] args) {
-		Node root = new Node(1);
-		root.left = new Node(2);
-		root.right = new Node(3);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
 //		root.left.left = new Node(4);
 //		root.left.right = new Node(5);
-		root.right.left = new Node(4);
-		root.right.right = new Node(5);
+		root.right.left = new TreeNode(4);
+		root.right.right = new TreeNode(5);
 		List<List<Integer>> levelOrder = levelOrder(root);
 		for (List<Integer> list : levelOrder) {
 			System.out.println(list);

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class PS18_LC987_VerticalOrderBTH {
 
-	static List<List<Integer>> verticalTraversal(Node root) {
+	static List<List<Integer>> verticalTraversal(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		
 		if (root == null) {
@@ -44,8 +44,8 @@ public class PS18_LC987_VerticalOrderBTH {
 			int currentX = current.x;
 			int currentY = current.y;
 			
-			Node leftNode = current.node.left;
-			Node rightNode = current.node.right;
+			TreeNode leftNode = current.node.left;
+			TreeNode rightNode = current.node.right;
 
 			
 			if (leftNode != null) {
@@ -103,13 +103,13 @@ public class PS18_LC987_VerticalOrderBTH {
 //		System.out.println(verticalTraversal(root));
 		
 		
-		Node root2 = new Node(1);
-		root2.left = new Node(2);
-		root2.right = new Node(3);
-		root2.left.left = new Node(4);
-		root2.left.right = new Node(5);
-		root2.right.left = new Node(6);
-		root2.right.right = new Node(7);
+		TreeNode root2 = new TreeNode(1);
+		root2.left = new TreeNode(2);
+		root2.right = new TreeNode(3);
+		root2.left.left = new TreeNode(4);
+		root2.left.right = new TreeNode(5);
+		root2.right.left = new TreeNode(6);
+		root2.right.right = new TreeNode(7);
 		
 		System.out.println(verticalTraversal(root2));
 	}
@@ -117,10 +117,10 @@ public class PS18_LC987_VerticalOrderBTH {
 }
 
 class Wrapper {
-	Node node;
+	TreeNode node;
 	int x;
 	int y;
-	public Wrapper(Node node, int x, int y) {
+	public Wrapper(TreeNode node, int x, int y) {
 		this.node = node;
 		this.x = x;
 		this.y = y;

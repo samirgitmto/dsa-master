@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class PS16_LC113_PathSumII {
 
-	public List<List<Integer>> pathSum(Node root, int targetSum) {
+	public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		
 		if (root == null) return res;
@@ -21,8 +21,8 @@ public class PS16_LC113_PathSumII {
 		
 		while (!queue.isEmpty()) {
 			NodeWrapper current = queue.poll();
-			Node nextLeft = current.node.left;
-			Node nextRight = current.node.right;
+			TreeNode nextLeft = current.node.left;
+			TreeNode nextRight = current.node.right;
 			if (nextLeft == null
 					&& nextRight == null
 					&& current.currentSum == targetSum) {
@@ -52,10 +52,10 @@ public class PS16_LC113_PathSumII {
 	}
 	
 	static class NodeWrapper {
-		Node node;
+		TreeNode node;
 		int currentSum;
 		List<Integer> list;
-		public NodeWrapper(Node node, int x) {
+		public NodeWrapper(TreeNode node, int x) {
 			this.node = node;
 			this.currentSum = x;
 		}

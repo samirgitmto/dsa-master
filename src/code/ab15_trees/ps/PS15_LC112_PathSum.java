@@ -9,7 +9,7 @@ import java.util.Queue;
  */
 public class PS15_LC112_PathSum {
 
-	static boolean hasPathSum(Node root, int targetSum) {
+	static boolean hasPathSum(TreeNode root, int targetSum) {
 		if (root == null)	return false;
 		
 		Queue<NodeWrapper> queue = new ArrayDeque<>();
@@ -17,8 +17,8 @@ public class PS15_LC112_PathSum {
 		
 		while (!queue.isEmpty()) {
 			NodeWrapper current = queue.poll();
-			Node nextLeft = current.node.left;
-			Node nextRight = current.node.right;
+			TreeNode nextLeft = current.node.left;
+			TreeNode nextRight = current.node.right;
 			if (nextLeft == null
 					&& nextRight == null
 					&& current.currentSum == targetSum) {
@@ -43,9 +43,9 @@ public class PS15_LC112_PathSum {
 	}
 }
 class NodeWrapper {
-	Node node;
+	TreeNode node;
 	int currentSum;
-	public NodeWrapper(Node node, int x) {
+	public NodeWrapper(TreeNode node, int x) {
 		this.node = node;
 		this.currentSum = x;
 	}

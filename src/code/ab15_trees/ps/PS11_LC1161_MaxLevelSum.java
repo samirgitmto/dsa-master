@@ -21,7 +21,7 @@ public class PS11_LC1161_MaxLevelSum {
 	 * @param root
 	 * @return maxLevel
 	 */
-    static int maxLevelSum(Node root) {
+    static int maxLevelSum(TreeNode root) {
     	
     	List<Integer> levelSums = new ArrayList<Integer>();
     	
@@ -42,7 +42,7 @@ public class PS11_LC1161_MaxLevelSum {
 		maxLevelIndex += 1; // 1 - based index
 		return maxLevelIndex;
 	}
-	private static void dfs(Node node, int currentLevel, List<Integer> levelSumList) {
+	private static void dfs(TreeNode node, int currentLevel, List<Integer> levelSumList) {
 		if (node == null)	return;
 		
 		if (currentLevel > levelSumList.size()) {
@@ -59,11 +59,11 @@ public class PS11_LC1161_MaxLevelSum {
 
 
 	public static void main(String[] args) {
-		Node root = new Node(1);
-		root.left = new Node(4);
-		root.right = new Node(5);		
-		root.left.left = new Node(2);
-		root.left.right = new Node(3);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(4);
+		root.right = new TreeNode(5);		
+		root.left.left = new TreeNode(2);
+		root.left.right = new TreeNode(3);
 		System.out.println(maxLevelSum(root));
 	}
 }

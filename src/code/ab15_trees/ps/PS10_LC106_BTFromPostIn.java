@@ -15,7 +15,7 @@ public class PS10_LC106_BTFromPostIn {
 
 	static int postIndex = 0;
 	
-	static Node buildTree(int[] inorder, int[] postorder) {
+	static TreeNode buildTree(int[] inorder, int[] postorder) {
         
 		Map<Integer, Integer> inMap = IntStream.range(0, inorder.length)
 												.boxed()
@@ -26,13 +26,13 @@ public class PS10_LC106_BTFromPostIn {
 		return helper(inStart, inEnd, inorder, postorder, inMap);
     }
 	
-	private static Node helper(int inStart, int inEnd, int[] inorder, int[] postorder, Map<Integer, Integer> inMap) {
+	private static TreeNode helper(int inStart, int inEnd, int[] inorder, int[] postorder, Map<Integer, Integer> inMap) {
 		if (inStart > inEnd)	return null;
 		
 		int rootValue = postorder[postIndex];
 		postIndex--;
 		
-		Node root = new Node(rootValue);
+		TreeNode root = new TreeNode(rootValue);
 		
 		int inIndex = inMap.get(rootValue);
 		
@@ -42,11 +42,11 @@ public class PS10_LC106_BTFromPostIn {
 		return root;
 	}
 
-	static void traverseLevelOrder(Node root) {
+	static void traverseLevelOrder(TreeNode root) {
 		if (root == null)	return;
 		
-		Queue<Node> queue = new LinkedList<Node>();
-		Node current;
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		TreeNode current;
 		int levelSize = 0;
 		queue.offer(root);
 		
@@ -69,7 +69,7 @@ public class PS10_LC106_BTFromPostIn {
 	public static void main(String[] args) {
 		int[] postOrder = {2, 1, 5, 4, 3};
 		int[] inorder = {1, 2, 3, 4, 5};
-		Node root = buildTree(inorder, postOrder);
+		TreeNode root = buildTree(inorder, postOrder);
 		traverseLevelOrder(root);
 	}	
 	

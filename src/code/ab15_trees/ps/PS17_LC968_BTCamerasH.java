@@ -15,7 +15,7 @@ public class PS17_LC968_BTCamerasH {
 	
 	static int cameras = 0;
 	
-	static int minCameraCover(Node root) {
+	static int minCameraCover(TreeNode root) {
         if (root == null) return 0;
         
         cameras = 0;
@@ -26,7 +26,7 @@ public class PS17_LC968_BTCamerasH {
         return cameras;
     }
 	
-	private static int dfs(Node root) {
+	private static int dfs(TreeNode root) {
 		if (root == null)
 			return COVERED;
 		
@@ -46,13 +46,13 @@ public class PS17_LC968_BTCamerasH {
 	}
 
 	public static void main(String[] args) {
-		Node node = new Node(10);
-		node.left = new Node(20);
-		node.right = new Node(30);
+		TreeNode node = new TreeNode(10);
+		node.left = new TreeNode(20);
+		node.right = new TreeNode(30);
 		System.out.println(minCameraCover(node));
 		
-		node.left.left = new Node(40);
-		node.left.right = new Node(50);
+		node.left.left = new TreeNode(40);
+		node.left.right = new TreeNode(50);
 		System.out.println(minCameraCover(node));
 	}
 }

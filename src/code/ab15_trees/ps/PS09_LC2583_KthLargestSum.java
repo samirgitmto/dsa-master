@@ -8,12 +8,12 @@ import java.util.Queue;
 
 public class PS09_LC2583_KthLargestSum {
 
-	static long kthLargestLevelSum(Node root, int k) {
+	static long kthLargestLevelSum(TreeNode root, int k) {
         if (root == null)	return -1;
         
         List<Long> listOfLevelsSum = new ArrayList<Long>();
         
-		Queue<Node> queue = new ArrayDeque<Node>();
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
 		queue.offer(root);
 		
 		while (!queue.isEmpty()) {
@@ -21,7 +21,7 @@ public class PS09_LC2583_KthLargestSum {
 			long levelSum = 0;
 			
 			for (int i=0; i<levelSize; i++) {
-				Node current = queue.poll();
+				TreeNode current = queue.poll();
 				levelSum += current.val;
 				
 				if (current.left != null)
@@ -47,12 +47,12 @@ public class PS09_LC2583_KthLargestSum {
     
 	}
 	
-	static long kthLargestLevelSumV1(Node root, int k) {
+	static long kthLargestLevelSumV1(TreeNode root, int k) {
         if (root == null)	return -1;
         
         List<Long> listOfLevelsSum = new ArrayList<Long>();
         
-		Queue<Node> queue = new ArrayDeque<Node>();
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
 		queue.offer(root);
 		
 		while (!queue.isEmpty()) {
@@ -60,7 +60,7 @@ public class PS09_LC2583_KthLargestSum {
 			long levelSum = 0;
 			
 			for (int i=0; i<levelSize; i++) {
-				Node current = queue.poll();
+				TreeNode current = queue.poll();
 				levelSum += current.val;
 				
 				if (current.left != null)
@@ -88,11 +88,11 @@ public class PS09_LC2583_KthLargestSum {
     }
 	
 	public static void main(String[] args) {
-		Node root = new Node(1);
-		root.left = new Node(2);
-		root.right = new Node(3);		
-		root.left.left = new Node(4);
-		root.left.right = new Node(5);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);		
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(5);
 		
 		System.out.println(kthLargestLevelSum(root, 2));
 		System.out.println(kthLargestLevelSum(root, 1));

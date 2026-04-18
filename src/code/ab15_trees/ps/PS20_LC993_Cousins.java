@@ -19,20 +19,20 @@ public class PS20_LC993_Cousins {
 	 * @param y
 	 * @return
 	 */
-	static boolean isCousins(Node root, int x, int y) {
+	static boolean isCousins(TreeNode root, int x, int y) {
 		if (root == null)	return false;
 		
-		Queue<Node> queue = new ArrayDeque<Node>();
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
 		queue.offer(root);
 				
-		Node parentX = null;
-		Node parentY = null;
+		TreeNode parentX = null;
+		TreeNode parentY = null;
 		
 		while (!queue.isEmpty()) {
 			int levelSize = queue.size();
 			
 			for (int i = 0; i < levelSize; i++) {
-				Node current = queue.poll();
+				TreeNode current = queue.poll();
 				
 				if (current.left != null) {
 					if (current.left.val == x)	parentX = current;
@@ -61,11 +61,11 @@ public class PS20_LC993_Cousins {
 	}
 	
 	public static void main(String[] args) {
-		Node root = new Node(1);
-		root.left = new Node(2);
-		root.left.left = new Node(4);
-		root.right = new Node(3);
-		root.right.right = new Node(5);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(4);
+		root.right = new TreeNode(3);
+		root.right.right = new TreeNode(5);
 		
 		System.out.println(isCousins(root, 2, 3));
 		System.out.println(isCousins(root, 4, 5));

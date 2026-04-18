@@ -16,20 +16,20 @@ public class PS08_LC105_BTFromPrenIn {
 
 	static int preIndex = 0;
 	
-	public static Node buildTree(int[] preorder, int[] inorder) {
+	public static TreeNode buildTree(int[] preorder, int[] inorder) {
         Map<Integer, Integer> inorderMap = createMap(inorder);
         
         preIndex = 0;  
         return helper(0, preorder.length-1, preorder, inorder, inorderMap);
     }
 	
-	private static Node helper(int inStart, int inEnd, int[] preorder, int[] inorder, Map<Integer, Integer> inorderMap) {
+	private static TreeNode helper(int inStart, int inEnd, int[] preorder, int[] inorder, Map<Integer, Integer> inorderMap) {
 		if (inStart > inEnd || preIndex > preorder.length-1)	return null;
 		
 		int rootValue = preorder[preIndex];
 		preIndex++;
 		
-		Node root = new Node(rootValue);
+		TreeNode root = new TreeNode(rootValue);
 		
 		int inIndex = inorderMap.get(rootValue);
 		
@@ -40,13 +40,13 @@ public class PS08_LC105_BTFromPrenIn {
 	}
 	
 	// have to investigate the preIndex passing problem here
-	private static Node helper0(int preIndex, int inStart, int inEnd, int[] preorder, int[] inorder, Map<Integer, Integer> inorderMap) {
+	private static TreeNode helper0(int preIndex, int inStart, int inEnd, int[] preorder, int[] inorder, Map<Integer, Integer> inorderMap) {
 		if (inStart > inEnd || preIndex > preorder.length-1)	return null;
 		
 		int rootValue = preorder[preIndex];
 		preIndex++;
 		
-		Node root = new Node(rootValue);
+		TreeNode root = new TreeNode(rootValue);
 		
 		int inIndex = inorderMap.get(rootValue);
 		
@@ -74,11 +74,11 @@ public class PS08_LC105_BTFromPrenIn {
 		return map;
 	}
 
-	static void traverseLevelOrder(Node root) {
+	static void traverseLevelOrder(TreeNode root) {
 		if (root == null)	return;
 		
-		Queue<Node> queue = new LinkedList<Node>();
-		Node current;
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		TreeNode current;
 		int levelSize = 0;
 		queue.offer(root);
 		
@@ -101,7 +101,7 @@ public class PS08_LC105_BTFromPrenIn {
 	public static void main(String[] args) {
 		int[] preorder = {3,9,20,15,7};
 		int[] inorder = {9,3,15,20,7};
-		Node root = buildTree(preorder, inorder);
+		TreeNode root = buildTree(preorder, inorder);
 		traverseLevelOrder(root);
 	}
 }

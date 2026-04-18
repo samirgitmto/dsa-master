@@ -15,12 +15,12 @@ public class PS06_PostOrderTraversal {
 	 * using lastVisited pointer and a Stack
 	 * @param root
 	 */
-	static void postOrder(Node root) {
+	static void postOrder(TreeNode root) {
 		if (root == null)	return;
 		
-		Stack<Node> stack = new Stack<Node>();
-		Node current = root;
-		Node lastVisited = null;
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		TreeNode current = root;
+		TreeNode lastVisited = null;
 		
 		while (current != null || !stack.isEmpty()) {
 			if (current != null) {
@@ -28,7 +28,7 @@ public class PS06_PostOrderTraversal {
 				current = current.left;
 			}
 			else {
-				Node peek = stack.peek();
+				TreeNode peek = stack.peek();
 				// CASE 1: right child exists and is not processed yet
 				if (peek.right != null && peek.right != lastVisited) {
 					current = peek.right;
@@ -42,14 +42,14 @@ public class PS06_PostOrderTraversal {
 		}
 	}
 	
-	static List<Integer> postOrderUsing2Stacks(Node root) {
+	static List<Integer> postOrderUsing2Stacks(TreeNode root) {
 		if (root == null)	return new ArrayList<Integer>();
-		Stack<Node> stack1 = new Stack<Node>();
-		Stack<Node> stack2 = new Stack<Node>();
+		Stack<TreeNode> stack1 = new Stack<TreeNode>();
+		Stack<TreeNode> stack2 = new Stack<TreeNode>();
 		stack1.push(root);
 		
 		while (!stack1.isEmpty()) {
-			Node currentNode = stack1.pop();
+			TreeNode currentNode = stack1.pop();
 			stack2.push(currentNode);
 			
 			if (currentNode.left != null)
@@ -67,12 +67,62 @@ public class PS06_PostOrderTraversal {
 	}
 	
 	public static void main(String[] args) {
-		Node root = new Node(1);
-		root.left = new Node(2);
-		root.right = new Node(3);		
-		root.left.left = new Node(4);
-		root.left.right = new Node(5);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);		
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(5);
 		postOrder(root);
 		postOrderUsing2Stacks(root);
 	}
+}
+
+/**
+ * @since 18-04-2026
+ */
+class Solution3 {
+	
+	/**
+	 * Have I already come back from the right subtree?
+	 *        node
+     *		 /    \
+   	 *	  done?  done?
+   	 * 
+   	 * go right if not processed.
+   	 * 
+   	 * Because unlike inorder/preorder, postorder needs to ensure both subtrees are processed before visiting the node.
+   	 *  The stack alone doesn’t tell us whether we have already processed the right subtree, so we track the last visited node.
+	 * @param root
+	 * @return
+	 */
+    public List<Integer> postorderTraversal(TreeNode root) {
+    	List<Integer> list = new ArrayList<Integer>();
+    	if (root == null)	return list;
+    	
+    	Stack<TreeNode> stack = new Stack<TreeNode>();
+    	TreeNode curr = root;
+    	TreeNode lastVisitedNode = null;
+    	
+    	while (curr != null || !stack.isEmpty()) {
+    		if (curr != null) {
+    			stack.push(curr);
+    			curr = curr.left;
+    		}
+    		else {
+    			TreeNode localRoot = stack.peek();
+    			// go right if not processed
+    			if (localRoot.right != null && lastVisitedNode != localRoot.right) {
+    				curr = localRoot.right;
+    			}
+    			else {
+    				// process
+    				list.add(localRoot.val);
+    				// update lastVisitedNode only after processing it
+    				lastVisitedNode = stack.pop();
+    			}
+    		}
+    	}
+    	
+    	return list;
+    }
 }

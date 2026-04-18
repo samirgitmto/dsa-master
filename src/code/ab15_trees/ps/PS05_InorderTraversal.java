@@ -1,5 +1,7 @@
 package code.ab15_trees.ps;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -8,12 +10,12 @@ import java.util.Stack;
  */
 public class PS05_InorderTraversal {
 
-	static void iterInorderTraverse(Node root) {
+	static void iterInorderTraverse(TreeNode root) {
 		if (root == null)	return;
 		
-		Stack<Node> stack = new Stack<Node>();
+		Stack<TreeNode> stack = new Stack<TreeNode>();
 		
-		Node current = root;
+		TreeNode current = root;
 		while (current != null || !stack.isEmpty()) {
 			
 			// accumulate left into stack
@@ -32,12 +34,12 @@ public class PS05_InorderTraversal {
 		System.out.println();
 	}
 	
-	static void iterInorder(Node root) {
+	static void iterInorder(TreeNode root) {
 		if (root == null)	return;
 		
-		Stack<Node> stack = new Stack<Node>();
+		Stack<TreeNode> stack = new Stack<TreeNode>();
 		
-		Node current = root;
+		TreeNode current = root;
 		
 		while (current != null || !stack.isEmpty()) {
 			if (current != null) {
@@ -54,13 +56,84 @@ public class PS05_InorderTraversal {
 	}
 	
 	public static void main(String[] args) {
-		Node root = new Node(3);
-		root.left = new Node(2);
-		root.right = new Node(4);
-		root.left.left = new Node(1);
-		root.right.right = new Node(5);
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(4);
+		root.left.left = new TreeNode(1);
+		root.right.right = new TreeNode(5);
 		iterInorderTraverse(root);
 		iterInorder(root);
+		
+		long prev1 = Integer.MIN_VALUE - 1;
+//		long prev1 = Integer.MIN_VALUE - 1l;
+		System.out.println(prev1);    // 2147483647
+		long prev2 = Integer.MIN_VALUE;
+		System.out.println(prev2);    // -2147483648
+
 	}
 	
+}
+
+/**
+ * @since 18-04-2026
+ */
+class Solution2 {
+	
+	/**
+	 * LC 94
+	 * The stack stores the path to the current node. By pushing all left nodes 1st, we ensure that when we pop, we are visiting nodes in inorder sequence.
+	 * @param root
+	 * @return
+	 */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<Integer>();
+    	
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode curr = root;
+        
+        while (curr != null || !stack.isEmpty()) {
+        	if (curr != null) {
+        		stack.push(curr);
+        		curr= curr.left;
+        	}
+        	else {
+        		TreeNode node = stack.pop();
+        		list.add(node.val);
+        		curr = node.right;
+        	}
+        }
+        
+        return list;
+    }
+    
+    /**
+     * LC 98
+     * Inorder traversal gives sorted order
+     * @param root
+     * @return
+     */
+    public boolean isValidBST(TreeNode root) {
+        if (root == null)	return true;
+        
+        long prev = Long.MIN_VALUE;
+        
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode curr = root;
+        
+        while (curr != null || !stack.isEmpty()) {
+        	while (curr != null) {
+        		stack.push(curr);
+        		curr = curr.left;
+        	}
+        	
+        	// process
+        	curr = stack.pop();
+        	if (curr.val <= prev)	return false;
+        	prev = curr.val;
+        	// move to right
+        	curr = curr.right;
+        }
+        
+        return true;
+    }
 }

@@ -22,30 +22,30 @@ public class PS14_LC226_InvertBinaryTree {
 	 * @param root
 	 * @return
 	 */
-	static Node invertTreeDfsRec(Node root) {
+	static TreeNode invertTreeDfsRec(TreeNode root) {
 		if (root == null)	return root;
 		
 		invertTreeDfsRec(root.left);
 		invertTreeDfsRec(root.right);
 		
-		Node temp = root.left;
+		TreeNode temp = root.left;
 		root.left = root.right;
 		root.right = temp;
 		
 		return root;
 	}
 	
-	static Node invertTreeBFS(Node root) {
+	static TreeNode invertTreeBFS(TreeNode root) {
 		if (root == null) return null;
 		
-		Queue<Node> queue = new ArrayDeque<Node>();
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
 		
 		queue.offer(root);
 		
 		while (!queue.isEmpty()) {
-			Node current = queue.poll();
+			TreeNode current = queue.poll();
 			
-			Node temp = current.left;
+			TreeNode temp = current.left;
 			current.left = current.right;
 			current.right = temp;
 			
@@ -69,17 +69,17 @@ public class PS14_LC226_InvertBinaryTree {
 	 * @param root
 	 * @return
 	 */
-	static Node invertTreeDFSIter(Node root) {
+	static TreeNode invertTreeDFSIter(TreeNode root) {
 		if (root == null)	return null;
 		
-		Stack<Node> stack = new Stack<Node>();
+		Stack<TreeNode> stack = new Stack<TreeNode>();
 		stack.push(root);
 		
 		while (!stack.isEmpty()) {
-			Node current = stack.pop();
+			TreeNode current = stack.pop();
 //			System.err.println("node processed: " + current.val);
 			
-			Node temp = current.left;
+			TreeNode temp = current.left;
 			current.left = current.right;
 			current.right = temp;
 			
@@ -93,16 +93,16 @@ public class PS14_LC226_InvertBinaryTree {
 	}
 
 	
-	static void traverseLevelOrder(Node root) {
+	static void traverseLevelOrder(TreeNode root) {
 		if (root == null)	return;
 		
-		Queue<Node> queue = new ArrayDeque<Node>();
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
 		
 		System.out.print(root.val + " ");
 		queue.offer(root);
 		
 		while (!queue.isEmpty()) {
-			Node current = queue.poll();
+			TreeNode current = queue.poll();
 			if (current.left != null) {
 				System.out.print(current.left.val + " ");
 				queue.offer(current.left);
@@ -116,13 +116,13 @@ public class PS14_LC226_InvertBinaryTree {
 	}
 	
 	public static void main(String[] args) {
-		Node root = new Node(1);
-		root.left = new Node(2);
-		root.right = new Node(3);		
-		root.left.left = new Node(4);
-		root.left.right = new Node(5);
-		root.right.left = new Node(6);
-		root.right.right = new Node(7);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);		
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(5);
+		root.right.left = new TreeNode(6);
+		root.right.right = new TreeNode(7);
 		
 		traverseLevelOrder(root);
 //		invertTreeDfsRec(root);

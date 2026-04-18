@@ -1,5 +1,7 @@
 package code.ab15_trees.ps;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -8,10 +10,10 @@ import java.util.Stack;
  */
 public class PS04_PreorderTraversal {
 
-	static void iterativePreorder(Node root) {
+	static void iterativePreorder(TreeNode root) {
 		if (root == null)	return;
 		
-		Stack<Node> stack = new Stack<Node>();
+		Stack<TreeNode> stack = new Stack<TreeNode>();
 		stack.push(root);
 		
 		while (!stack.isEmpty()) {
@@ -27,12 +29,12 @@ public class PS04_PreorderTraversal {
 		System.out.println();
 	}
 	
-	static void iterativePreorderV1(Node root2) {
+	static void iterativePreorderV1(TreeNode root2) {
 		if (root2 == null)	return;
 		
-		Stack<Node> stack = new Stack<Node>();
+		Stack<TreeNode> stack = new Stack<TreeNode>();
 		stack.push(root2);
-		Node root = null;
+		TreeNode root = null;
 		while (!stack.isEmpty()) {
 			if (root == null) {
 				root = stack.pop();
@@ -45,7 +47,7 @@ public class PS04_PreorderTraversal {
 		}
 	}
 	
-	static void recPreorderTraversal(Node root) {
+	static void recPreorderTraversal(TreeNode root) {
 		if (root != null) {
 			System.out.print(root.val);
 			recPreorderTraversal(root.left);
@@ -54,21 +56,51 @@ public class PS04_PreorderTraversal {
 	}
 	
 	public static void main(String[] args) {
-		Node root = new Node(1);
-		root.left = new Node(2);
-		root.right = new Node(3);
-		root.left.left = new Node(4);
-		root.left.right = new Node(5);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(5);
 		iterativePreorder(root);
 //		iterativePreorderV1(root);
 //		recPreorderTraversal();
 	}
 }
 
-class Node {
+class TreeNode {
 	int val;
-	Node left, right;
-	public Node(int x) {
+	TreeNode left, right;
+	public TreeNode(int x) {
 		this.val = x;
 	}
+}
+
+/**
+ * @since 18-04-2026
+ */
+class Solution {
+	
+	/**
+	 * 
+	 * Time: O(n)
+	 * Space: O(h) (worst-case O(n))
+	 * @param root
+	 * @return
+	 */
+    public List<Integer> preorderTraversal(TreeNode root) {
+    	List<Integer> list = new ArrayList<Integer>();
+    	if (root == null)	return list;
+    	Stack<TreeNode> stack = new Stack<TreeNode>();
+        
+        stack.push(root);
+        while (!stack.isEmpty()) {
+        	TreeNode pop = stack.pop();
+        	list.add(pop.val);
+        	
+        	if (pop.right != null)	stack.push(pop.right);
+        	if (pop.left != null)	stack.push(pop.left);
+        }
+        
+        return list;
+    }
 }
