@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * construction of Binary Tree using Preorder and Inorder traversals arrays
@@ -103,5 +104,94 @@ public class PS08_LC105_BTFromPrenIn {
 		int[] inorder = {9,3,15,20,7};
 		TreeNode root = buildTree(preorder, inorder);
 		traverseLevelOrder(root);
+	}
+}
+
+/**
+ * @since 19-04-2026
+ */
+class Solution4 {
+	
+//    static int preIndex;
+	
+	/**
+	 * Main Invariant: At every recursive call, preIndex points to the root of the subtree defined by the current inorder range,
+	 *  and the inorder range fully represents that subtree.
+	 *
+	 * INVARIANT:
+	 * 1. At the start of every recursive call:
+	 *    - preIndex[0] points to the root of the current subtree.
+	 *
+	 * 2. The inorder range [inStart, inEnd]:
+	 *    - Represents exactly all nodes belonging to this subtree.
+	 *    - Left subtree  → [inStart, inIndex - 1]
+	 *    - Right subtree → [inIndex + 1, inEnd]
+	 *
+	 * 3. Construction flow:
+	 *    - Preorder gives root (preIndex moves forward).
+	 *    - Inorder splits subtree into left and right parts.
+	 *
+	 * 4. Key guarantee:
+	 *    - Left subtree is built first → consumes its nodes in preorder.
+	 *    - preIndex naturally advances to the correct root of right subtree.
+	 *
+	 * 5. Termination:
+	 *    - When inStart > inEnd → no nodes → return null.
+	 * Summary: preIndex always points to the correct root for the current inorder-defined subtree.
+	 *  
+	 * Map reduces the Time Complexity from O(n2) to O(n).
+	 * HashMap takes O(n), and recursion stack takes O(h), which is O(log n) for balanced and O(n) in worst case. So overall space is O(n).
+	 * Space: O(n)
+	 * - O(n) for HashMap
+	 * - O(h) recursion stack (h = tree height)
+	 *  
+	 * @param preorder
+	 * @param inorder
+	 * @return root
+	 */
+	public TreeNode buildTree(int[] preorder, int[] inorder) {
+    	if (preorder == null || preorder.length == 0 || preorder.length != inorder.length)
+    		return null;
+    	
+    	Map<Integer, Integer> inMap = createInorderMap(inorder);
+    	
+    	// Global preOrderPointer BUT violates Purity of the function.
+    	// Thus we can pass it as parameter using an array
+    	// Even this “pure” version is not fully pure in strict FP sense because: You still mutate preIndex[0]
+    	int[] preIndex = {0}; // acts like a mutable pointer as Object references are passed by value
+    	
+    	int inStart = 0;
+    	int inEnd = inorder.length - 1;
+    	
+        return helper(preorder, inStart, inEnd, inMap, preIndex);
+    }
+
+	private TreeNode helper(int[] preorder, int inStart, int inEnd, Map<Integer, Integer> inMap, int[] preIndex) {
+		if (inStart > inEnd)	return null;
+		
+		int localRootValue = preorder[preIndex[0]];
+		preIndex[0]++;
+		int inIndex = inMap.get(localRootValue);
+		
+		TreeNode root = new TreeNode(localRootValue);
+		root.left = helper(preorder, inStart, inIndex-1, inMap, preIndex);
+		root.right = helper(preorder, inIndex+1, inEnd, inMap, preIndex);
+		return root;
+	}
+
+	private Map<Integer, Integer> createInorderMap(int[] inorder) {
+//		Map<Integer, Integer> map = IntStream.range(0, inorder.length)
+//			.boxed()
+//			.collect(Collectors.toMap(i -> inorder[i], i -> i));
+		
+		// preferred
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>(inorder.length, 1);
+		int i = 0;
+		for (int e : inorder) {
+			map.put(e, i);
+			i++;
+		}
+		
+		return map;
 	}
 }

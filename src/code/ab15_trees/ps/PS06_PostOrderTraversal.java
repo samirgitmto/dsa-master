@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * LC145
  * Bit complex iterative traversal than other 2 as it requires a Node to be visited twice.
  * @author Mohammad Samir
  * @since 21-11-2025
@@ -124,5 +125,33 @@ class Solution3 {
     	}
     	
     	return list;
+    }
+    
+    /**
+     * Using 2 Stacks. But 1 Stack is preferred.
+     * @param root
+     * @return
+     */
+    public List<Integer> postorderTraversalV2(TreeNode root) {
+    	List<Integer> integers = new ArrayList<Integer>();
+    	if (root == null)	return integers;
+    	
+    	Stack<TreeNode> stack1 = new Stack<TreeNode>();
+    	Stack<TreeNode> stack2 = new Stack<TreeNode>();
+    	
+    	stack1.push(root);
+    	
+    	while (!stack1.isEmpty()) {
+    		TreeNode node = stack1.pop();
+    		stack2.push(node);
+    		
+    		if (node.left != null)	stack1.push(node.left);
+    		if (node.right != null)	stack1.push(node.right);
+    	}
+    	
+    	while (!stack2.isEmpty()) {
+    		integers.add(stack2.pop().val);
+    	}
+    	return integers;
     }
 }

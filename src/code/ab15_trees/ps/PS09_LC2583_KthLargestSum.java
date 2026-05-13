@@ -4,10 +4,21 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.stream.Stream;
 
+/**
+ * @since 2025-11-22
+ */
 public class PS09_LC2583_KthLargestSum {
 
+	/**
+	 * BETTER to use min heap instead
+	 * @param root
+	 * @param k
+	 * @return
+	 */
 	static long kthLargestLevelSum(TreeNode root, int k) {
         if (root == null)	return -1;
         
@@ -96,5 +107,38 @@ public class PS09_LC2583_KthLargestSum {
 		
 		System.out.println(kthLargestLevelSum(root, 2));
 		System.out.println(kthLargestLevelSum(root, 1));
+	}
+}
+
+class Solution5 {
+	
+    public long kthLargestLevelSum(TreeNode root, int k) {
+    	if (root == null)	return -1;
+    	PriorityQueue<Long> minHeap = new PriorityQueue<Long>();
+    	
+    	Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
+    	queue.offer(root);
+    	while (!queue.isEmpty()) {
+    		int levelSize = queue.size();
+    		long levelSum = 0;
+    		for (int i = 0; i < levelSize; i++) {
+    			TreeNode node = queue.poll();
+    			levelSum += node.val;
+    			
+    			if (node.left != null)	queue.offer(node.left);
+    			if (node.right != null)	queue.offer(node.right);
+    		}
+    		minHeap.offer(levelSum);
+    		while (minHeap.size() > k) {
+    			minHeap.poll();
+    		}
+    	}
+    	
+    	return minHeap.size() == k ? minHeap.peek() : -1;
+    }
+
+	private long getKthLargest(List<Long> list, int k) {
+		Long res = list.stream().sorted(Comparator.reverseOrder()).skip(k-1).findFirst().orElse(-1l);
+		return res;
 	}
 }

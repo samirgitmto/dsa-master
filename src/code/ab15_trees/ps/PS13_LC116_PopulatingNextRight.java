@@ -95,3 +95,31 @@ class Node2 {
 		this.val = x;
 	}
 }
+
+class Solution6 {
+    public Node2 connect(Node2 root) {
+        if (root == null)	return root;
+    	
+        Queue<Node2> queue = new ArrayDeque<Node2>();
+        queue.offer(root);
+        
+        while (!queue.isEmpty()) {
+        	int levelSize = queue.size();
+        	
+        	for (int i = 0; i < levelSize; i++) {
+        		Node2 poll = queue.poll();
+        		if (i == levelSize - 1) {
+        			
+        		}
+        		else {
+        			Node2 peek = queue.peek();
+        			poll.next = peek;
+        		}
+        		if (poll.left != null)	queue.offer(poll.left);
+        		if (poll.right != null)	queue.offer(poll.right);
+        	}
+        }
+        
+        return root;
+    }
+}

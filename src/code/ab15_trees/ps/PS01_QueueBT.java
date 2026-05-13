@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
-import code.ab15_trees.ps.april.PS01_QBT;
 
 /**
  * constructing a Binary Tree using Queue in iterative manner

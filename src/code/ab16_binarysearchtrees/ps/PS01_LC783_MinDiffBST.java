@@ -53,6 +53,10 @@ public class PS01_LC783_MinDiffBST {
 		root.left.right = new TreeNode(3);
 		root.right = new TreeNode(6);
 		System.out.println(minDiff(root));
+		Solution solution = new Solution();
+		int minDiffInBST = solution.minDiffInBST(root);
+		System.err.println(minDiffInBST);
+		System.err.println(solution.height(root));
 		
 		TreeNode root2 = new TreeNode(10);
 		root2.left = new TreeNode(5);
@@ -60,12 +64,50 @@ public class PS01_LC783_MinDiffBST {
 		root2.right.left = new TreeNode(13);
 		System.out.println(minDiff(root2));
 	}
-	
-	static class TreeNode {
-		int val;
-		TreeNode left, right;
-		public TreeNode(int x) {
-			this.val = x;
+
+}
+
+class TreeNode {
+	int val;
+	TreeNode left, right;
+	public TreeNode(int x) {
+		this.val = x;
+	}
+}
+
+/**
+ * @since 13-05-2026
+ */
+class Solution {
+	static TreeNode prev;
+	static int min;
+    public int minDiffInBST(TreeNode root) {
+    	if (root == null)
+    		return Integer.MAX_VALUE;
+    	
+    	min = Integer.MAX_VALUE;
+    	prev = null;
+    	
+    	dfs(root);
+    	
+    	return min;
+    }
+	private void dfs(TreeNode root) {
+		if (root == null)	return;
+		
+		dfs(root.left);
+		
+		if (prev != null) {
+			min = Math.min(min, root.val - prev.val);
 		}
+		prev = root;
+		dfs(root.right);
+	}
+	
+	public int height(TreeNode root) {
+		if (root == null)	return 0;
+		int x = height(root.left);
+		int y = height(root.right);
+		return x > y ? x + 1 : y + 1;
 	}
 }

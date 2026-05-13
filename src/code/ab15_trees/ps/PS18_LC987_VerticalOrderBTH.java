@@ -2,6 +2,7 @@ package code.ab15_trees.ps;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -125,4 +126,39 @@ class Wrapper {
 		this.x = x;
 		this.y = y;
 	}
+}
+
+/**
+ * @Since 10-05-2026
+ */
+class Solution7 {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+    	if (root == null)	return Collections.emptyList();
+    	
+    	Queue<Wrapper> queue = new ArrayDeque<Wrapper>();
+//    	Map<Integer, List<Wrapper>> map = new HashMap<>();
+    	Map<Integer, List<Wrapper>> map = new TreeMap<>();
+    	queue.offer(new Wrapper(root, 0, 0));
+    	
+    	while (!queue.isEmpty()) {
+    		Wrapper poll = queue.poll();
+    		
+    		map.computeIfAbsent(poll.y, k -> new ArrayList()).add(poll);
+    		
+    		if (poll.node.left != null)
+    			queue.offer(new Wrapper(poll.node.left, poll.x + 1, poll.y - 1));
+    		if (poll.node.right != null)
+    			queue.offer(new Wrapper(poll.node.right, poll.x + 1, poll.y + 1));
+    	}
+    	
+    	List<List<Integer>> res = new ArrayList<List<Integer>>();
+    	
+    	for (Map.Entry<Integer, List<Wrapper>> m : map.entrySet()) {
+    		List<Integer> list = m.getValue().stream().mapToInt(k -> k.node.val).boxed().toList();
+//    		List<Integer> list = m.getValue().stream().mapToInt(k -> k.node.val).sorted().boxed().toList();
+    		res.add(list);
+    	}
+    	
+    	return res;
+    }
 }
