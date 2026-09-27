@@ -1,6 +1,5 @@
 package code.ab16_binarysearchtrees.ps;
 
-import code.ab16_binarysearchtrees.ps.PS01_LC783_MinDiffBST.TreeNode;
 
 /**
  * Optimized approach in case of BST

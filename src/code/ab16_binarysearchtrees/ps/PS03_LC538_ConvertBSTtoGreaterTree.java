@@ -1,7 +1,5 @@
 package code.ab16_binarysearchtrees.ps;
 
-import code.ab16_binarysearchtrees.ps.PS01_LC783_MinDiffBST.TreeNode;
-
 /**
  * 
  * @since 04-12-2025
@@ -44,8 +42,12 @@ public class PS03_LC538_ConvertBSTtoGreaterTree {
 //		node.left.left.left= new TreeNode(1);
 		traverseInOrder(node);
 		System.out.println();
+//		
+//		convertBST(node);
+//		traverseInOrder(node);
 		
-		convertBST(node);
+		Solution3 solution3 = new Solution3();
+		solution3.convertBST(node);
 		traverseInOrder(node);
 	}
 	
@@ -55,5 +57,29 @@ public class PS03_LC538_ConvertBSTtoGreaterTree {
 			System.out.print(root.val + " ");
 			traverseInOrder(root.right);
 		}
+	}
+}
+
+/**
+ * @since 15-05-2026
+ */
+class Solution3 {
+	static int runningSum = 0;
+    public TreeNode convertBST(TreeNode root) {
+        if (root == null)	return null;
+        runningSum = 0;
+        return dfs(root);
+    }
+	private TreeNode dfs(TreeNode root) {
+		if (root == null)
+			return null;
+		
+		dfs(root.right);
+		runningSum += root.val;
+		
+		root.val = runningSum;
+		dfs(root.left);
+		
+		return root;
 	}
 }

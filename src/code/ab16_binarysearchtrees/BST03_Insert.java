@@ -51,6 +51,31 @@ public class BST03_Insert {
 		insertRecur(head, 40);
 		inOrderTraversal(head);
 		System.out.println();
+		
+		Solution solution = new Solution();
+		Node node3 = new Node(4);
+		node3.left = new Node(2);
+		node3.right = new Node(6);
+		solution.insertIntoBST(node3, 1);
+		inOrderTraversal(node3);
 	}
 	
+}
+/**
+ * @since 15-05-2026
+ */
+class Solution {
+    public Node insertIntoBST(Node root, int val) {
+    	if (root == null) {
+    		root = new Node(val);
+    	}
+    	else if (val < root.val) {
+    		root.left = insertIntoBST(root.left, val);
+    	}
+    	else if (val > root.val) {
+    		root.right = insertIntoBST(root.right, val);
+    	}
+    	
+    	return root;
+    }
 }

@@ -1,9 +1,6 @@
 package code.ab16_binarysearchtrees.ps;
 
 import java.util.Stack;
-
-import code.ab16_binarysearchtrees.ps.PS01_LC783_MinDiffBST.TreeNode;
-
 /**
  * 
  * @since 04-12-2025
@@ -76,6 +73,45 @@ public class PS02_LC230_KthSmallest {
 		System.out.println(kthSmallest(node, 4));
 		System.out.println(kthSmallest(node, 5));
 		System.out.println(kthSmallestIter(node, 7));
+		
+		Solution2 solution2 = new Solution2();
+		System.err.println(solution2.kthSmallest(node, 3));
 	}
 	
+}
+
+/**
+ * @since 15-05-2026
+ */
+class Solution2 {
+	// 1 -> 2
+	static int i = 1;
+	static int ans = -1;
+	
+	/**
+	 * Time - O(h + k)
+	 * Space - O(h)
+	 * h for balanced -> O(log n)
+	 * h for skewed -> O(n)
+	 * @param root
+	 * @param k
+	 * @return
+	 */
+	public int kthSmallest(TreeNode root, int k) {
+	    i = 1;
+	    ans = -1;
+	    dfs(root, k);
+	    return ans;
+	}
+	private void dfs(TreeNode root, int k) {
+		if (root != null) {
+			dfs(root.left, k);
+			if (i == k) {
+				ans = root.val;
+			}
+			i++;
+			if (i <= k)
+				dfs(root.right, k);
+		}
+	}
 }

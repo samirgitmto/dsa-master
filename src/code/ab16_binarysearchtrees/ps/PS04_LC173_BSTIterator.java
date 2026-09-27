@@ -2,8 +2,6 @@ package code.ab16_binarysearchtrees.ps;
 
 import java.util.Stack;
 
-import code.ab16_binarysearchtrees.ps.PS01_LC783_MinDiffBST.TreeNode;
-
 public class PS04_LC173_BSTIterator {
 
 	Stack<TreeNode> stack;
