@@ -61,6 +61,95 @@ public class PS20_LC993_Cousins {
 		return false;
 	}
 	
+	
+	static boolean isCousins2(TreeNode root, int x, int y) {
+		if (root == null)	return false;
+		
+		Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
+		queue.offer(root);
+		TreeNode parentX = null, parentY = null;
+		
+		while (!queue.isEmpty() && (parentX == null && parentY == null)) {
+			int levelSize = queue.size();
+			
+			for (int i=0; i < levelSize; i++) {
+				TreeNode poll = queue.poll();
+				
+				if (poll.left != null) {
+					if (poll.left.val == x)	parentX = poll;
+					if (poll.left.val == y)	parentY = poll;
+					
+					queue.offer(poll.left);
+				}
+				if (poll.right != null) {
+					if (poll.right.val == x)	parentX = poll;
+					if (poll.right.val == y)	parentY = poll;
+					
+					queue.offer(poll.right);
+				}
+			}
+		}
+		
+		if (parentX == null || parentY == null)	return false;
+		
+		return parentX != parentY;
+	}
+	
+	static int depthX, depthY;
+	static TreeNode parentX = null, parentY = null;
+	/**
+	 * DFS
+	 * @param root
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	static boolean isCousins3(TreeNode root, int x, int y) {
+		if (root == null)	return false;
+		
+		parentX = null;
+		parentY = null;
+		depthX = -1;
+		depthY = -1;
+		dfs(root, x, y, 0);
+		
+		return parentX != null && parentY != null && parentX != parentY && depthX == depthY;
+	}
+	
+	
+	private static void dfs(TreeNode root, int x, int y, int depth) {
+		if (root == null)	return;
+		if (parentX != null && parentY != null) {
+			return;
+		}
+		
+		if (root.left != null) {
+			if (root.left.val == x) {
+				parentX = root;
+				depthX = depth + 1;
+			}
+			if (root.left.val == y) {
+				parentY = root;
+				depthY = depth + 1;
+			}
+			
+			dfs(root.left, x, y, depth+1);
+		}
+		if (root.right != null) {
+			if (root.right.val == x) {
+				parentX = root;
+				depthX = depth + 1;
+			}
+			if (root.right.val == y) {
+				parentY = root;
+				depthY = depth + 1;
+			}
+			dfs(root.right, x, y, depth+1);
+		}
+		
+	}
+
+
 	public static void main(String[] args) {
 		TreeNode root = new TreeNode(1);
 		root.left = new TreeNode(2);
@@ -70,6 +159,10 @@ public class PS20_LC993_Cousins {
 		
 		System.out.println(isCousins(root, 2, 3));
 		System.out.println(isCousins(root, 4, 5));
+		System.out.println(isCousins2(root, 2, 3));
+		System.out.println(isCousins2(root, 4, 5));
+		System.out.println(isCousins3(root, 2, 3));
+		System.out.println(isCousins3(root, 4, 5));
 	}
 }
 

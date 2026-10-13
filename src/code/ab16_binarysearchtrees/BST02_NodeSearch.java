@@ -13,7 +13,7 @@ public class BST02_NodeSearch {
 	 * @param key
 	 * @return node if present
 	 */
-	static Node search(Node head, int key) {
+	static TreeNode search(TreeNode head, int key) {
 		if (head==null)
 			return null;
 		if (key == head.val)
@@ -24,7 +24,7 @@ public class BST02_NodeSearch {
 			return search(head.right, key);
 		
 	}
-	static boolean isPresent(Node head, int key) {
+	static boolean isPresent(TreeNode head, int key) {
 		if (search(head, key)==null)
 			return false;
 		return true;
@@ -37,10 +37,10 @@ public class BST02_NodeSearch {
 	 * @param key
 	 * @return
 	 */
-	static boolean isPresentIter(Node root, int key) {
+	static boolean isPresentIter(TreeNode root, int key) {
 		if (root == null)	return false;
 		
-		Node current = root;
+		TreeNode current = root;
 		
 		while (current != null) {
 			if (current.val == key)	return true;
@@ -55,23 +55,23 @@ public class BST02_NodeSearch {
 	}
 	
 	public static void main(String[] args) {
-		Node head = new Node(30);
-		head.left = new Node(20);
-		head.right = new Node(40);
-		head.left.left = new Node(10);
-		head.left.right = new Node(25);
-		head.right.left = new Node(35);
-		head.right.right = new Node(50);
+		TreeNode head = new TreeNode(30);
+		head.left = new TreeNode(20);
+		head.right = new TreeNode(40);
+		head.left.left = new TreeNode(10);
+		head.left.right = new TreeNode(25);
+		head.right.left = new TreeNode(35);
+		head.right.right = new TreeNode(50);
 		System.out.println(isPresent(head, 25));
 		System.out.println(isPresentIter(head, 25));
 		System.out.println(isPresentIter(head, 26));
 	}	
 }
 
-class Node {
+class TreeNode {
 	int val;
-	Node left, right;
-	public Node(int x) {
+	TreeNode left, right;
+	public TreeNode(int x) {
 		this.val = x;
 	}
 }

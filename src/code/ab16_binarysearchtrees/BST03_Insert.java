@@ -12,10 +12,10 @@ public class BST03_Insert {
 	 * @param val
 	 * @return
 	 */
-	static Node insertRecur(Node head, int val) {
-		Node insert = null;
+	static TreeNode insertRecur(TreeNode head, int val) {
+		TreeNode insert = null;
 		if (head == null) {
-			insert = new Node(val);
+			insert = new TreeNode(val);
 			// above node constructor will make left and right child null.
 			return insert;
 		}
@@ -28,7 +28,7 @@ public class BST03_Insert {
 		return head;
 	}
 	
-	static void inOrderTraversal(Node head) {
+	static void inOrderTraversal(TreeNode head) {
 		if (head!=null) {
 			inOrderTraversal(head.left);
 			System.out.print(head.val + " ");
@@ -37,8 +37,8 @@ public class BST03_Insert {
 	}
 	
 	public static void main(String[] args) {
-		Node head = insertRecur(null, 30);
-		Node head2 = insertRecur(head, 30);
+		TreeNode head = insertRecur(null, 30);
+		TreeNode head2 = insertRecur(head, 30);
 		inOrderTraversal(head);
 		System.out.println();
 		inOrderTraversal(head2);
@@ -53,9 +53,9 @@ public class BST03_Insert {
 		System.out.println();
 		
 		Solution solution = new Solution();
-		Node node3 = new Node(4);
-		node3.left = new Node(2);
-		node3.right = new Node(6);
+		TreeNode node3 = new TreeNode(4);
+		node3.left = new TreeNode(2);
+		node3.right = new TreeNode(6);
 		solution.insertIntoBST(node3, 1);
 		inOrderTraversal(node3);
 	}
@@ -65,9 +65,9 @@ public class BST03_Insert {
  * @since 15-05-2026
  */
 class Solution {
-    public Node insertIntoBST(Node root, int val) {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
     	if (root == null) {
-    		root = new Node(val);
+    		root = new TreeNode(val);
     	}
     	else if (val < root.val) {
     		root.left = insertIntoBST(root.left, val);

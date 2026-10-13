@@ -35,6 +35,7 @@ public class Rc3_SumNatural {
 		System.out.println(getSum(5));
 		System.out.println(power(2, 4));
 		System.out.println(powerEnhn(2, 4));
+		System.out.println(powerEnhn(2, 3));
 	}
 	
 }

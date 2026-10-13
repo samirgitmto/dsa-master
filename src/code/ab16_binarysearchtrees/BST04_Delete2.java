@@ -2,7 +2,7 @@ package code.ab16_binarysearchtrees;
 
 public class BST04_Delete2 {
 
-	static Node delete(Node root, int key) {
+	static TreeNode delete(TreeNode root, int key) {
 		if (root == null)	return null;
 		
 		if (key < root.val)
@@ -20,12 +20,12 @@ public class BST04_Delete2 {
 			
 			// Case 3 - 2 children
 			if (height(root.left) > height(root.right)) {
-				Node inOrderPredecessor = inOrderPredecessor(root.left);
+				TreeNode inOrderPredecessor = inOrderPredecessor(root.left);
 				root.val = inOrderPredecessor.val;
 				root.left = delete(root.left, inOrderPredecessor.val);
 			}
 			else {
-				Node inOrderSuccessor = inOrderSuccessor(root.right);
+				TreeNode inOrderSuccessor = inOrderSuccessor(root.right);
 				root.val = inOrderSuccessor.val;
 				root.right = delete(root.right, inOrderSuccessor.val);
 			}
@@ -33,37 +33,37 @@ public class BST04_Delete2 {
 		return root;
 	}
 	
-	private static Node inOrderSuccessor(Node right) {
+	private static TreeNode inOrderSuccessor(TreeNode right) {
 		while (right != null && right.left != null) {
 			right = right.left;
 		}
 		return right;
 	}
 
-	private static Node inOrderPredecessor(Node left) {
+	private static TreeNode inOrderPredecessor(TreeNode left) {
 		while (left != null && left.right != null) {
 			left = left.right;
 		}
 		return left;
 	}
 
-	private static int height(Node root) {
+	private static int height(TreeNode root) {
 		if (root == null)	return 0;
 		return 1 + Math.max(height(root.left), height(root.right));
 	}
 
-	static Node createBSTfromArr(int[] arr) {
+	static TreeNode createBSTfromArr(int[] arr) {
 		if (arr == null)	return null;
-		Node root = null;
+		TreeNode root = null;
 		for (int in : arr) {
 			root = insertRec(root, in);
 		}
 		return root;
 	}
 	
-	private static Node insertRec(Node root, int in) {
+	private static TreeNode insertRec(TreeNode root, int in) {
 		if (root == null) {
-			return new Node(in);
+			return new TreeNode(in);
 		}
 		if (root.val > in) {
 			root.left = insertRec(root.left, in);
@@ -74,7 +74,7 @@ public class BST04_Delete2 {
 		return root;
 	}
 
-	static void traverseInOrder(Node root) {
+	static void traverseInOrder(TreeNode root) {
 		if (root != null) {
 			traverseInOrder(root.left);
 			System.out.print(root.val + " ");
@@ -85,11 +85,11 @@ public class BST04_Delete2 {
 //		int[] arr = {1, 5, 15, 10, 20, 25};
 //		int[] arr = {10, 20};
 		int[] arr = {10, 5};
-		Node bsTfromArr = createBSTfromArr(arr);
+		TreeNode bsTfromArr = createBSTfromArr(arr);
 		traverseInOrder(bsTfromArr);
 		System.out.println();
 		
-		Node delete = delete(bsTfromArr, 10);
+		TreeNode delete = delete(bsTfromArr, 10);
 		traverseInOrder(delete);
 		System.out.println();
 		traverseInOrder(bsTfromArr);

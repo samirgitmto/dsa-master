@@ -14,11 +14,11 @@ public class BST04_Delete {
 	 * @param i
 	 * @return
 	 */
-	private static Node delete(Node root, int i) {
+	private static TreeNode delete(TreeNode root, int i) {
 		if (root==null) {
 			return null;
 		}
-		Node inorderNeighbourNode = null;
+		TreeNode inorderNeighbourNode = null;
 		if (i<root.val) {
 			root.left = delete(root.left, i);
 		}
@@ -44,13 +44,13 @@ public class BST04_Delete {
 		return root;
 	}
 	
-	private static Node inorderSuccessor(Node rightNode) {
+	private static TreeNode inorderSuccessor(TreeNode rightNode) {
 		while (rightNode!=null && rightNode.left!=null)
 			rightNode = rightNode.left;
 		return rightNode;
 	}
 
-	private static Node inorderPredecessor(Node leftNode) {
+	private static TreeNode inorderPredecessor(TreeNode leftNode) {
 		while (leftNode!=null && leftNode.right!=null)
 			leftNode = leftNode.right;
 		return leftNode;
@@ -59,11 +59,11 @@ public class BST04_Delete {
 	public static void main(String[] args) {
 //		Node root = createBinarySearchTree(new int[]{10, 20, 40, 50, 60});
 //		Node root = createBinarySearchTree(new int[]{10, 40, 20, 50, 60});
-		Node root = createBinarySearchTree(new int[]{10, 20});
+		TreeNode root = createBinarySearchTree(new int[]{10, 20});
 		inOrderTraverse(root);
 		System.out.println();
 		
-		Node root2 = delete(root, 10);
+		TreeNode root2 = delete(root, 10);
 		System.out.println("root");
 		inOrderTraverse(root);
 		System.out.println("\nroot2");
@@ -77,8 +77,8 @@ public class BST04_Delete {
 	 * @param array of node elements values
 	 * @return root of the constructed Binary Tree
 	 */
-	private static Node createBinarySearchTree(int[] is) {
-		Node root = null;
+	private static TreeNode createBinarySearchTree(int[] is) {
+		TreeNode root = null;
 		for (int i : is) {
 			root = insertR(root, i);
 		}
@@ -86,9 +86,9 @@ public class BST04_Delete {
 		return root;
 	}
 
-	private static Node insertR(Node root, int i) {
+	private static TreeNode insertR(TreeNode root, int i) {
 		if (root==null) {
-			root = new Node(i);
+			root = new TreeNode(i);
 			return root;
 		}
 		
@@ -100,7 +100,7 @@ public class BST04_Delete {
 		return root;
 	}
 	
-	private static void inOrderTraverse(Node root) {
+	private static void inOrderTraverse(TreeNode root) {
 		if (root==null)	{
 			return;
 		}

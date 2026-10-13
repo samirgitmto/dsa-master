@@ -5,13 +5,13 @@ public class BST06_LC230_KthSmallest {
 	static int current = 0;
 //	static int current = 1;
 	
-	static int findKthSmallest(Node root, int k) {
+	static int findKthSmallest(TreeNode root, int k) {
 		if (root == null)	return -1;
 		current = 0;
 		return dfsHelper(root, k);
 	}
 	
-	private static int dfsHelper(Node root, int k) {
+	private static int dfsHelper(TreeNode root, int k) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -26,7 +26,7 @@ public class BST06_LC230_KthSmallest {
 	 * @param k
 	 * @return
 	 */
-	private static int dfsHelperW2(Node root, int k) {
+	private static int dfsHelperW2(TreeNode root, int k) {
 		if (root == null || current >= k)
 			return -1;
 		
@@ -55,7 +55,7 @@ public class BST06_LC230_KthSmallest {
 	 * @param k
 	 * @return
 	 */
-	private static int dfsHelperW1(Node root, int k) {
+	private static int dfsHelperW1(TreeNode root, int k) {
 		if (root == null)	return -1;
 		
 		if (current == k) {
@@ -75,7 +75,7 @@ public class BST06_LC230_KthSmallest {
 
 	public static void main(String[] args) {
 		int [] preorder = {40, 30, 20, 35, 80, 70, 90};
-		Node bsTfromPreorder = BST05_BSTfromPreOrder.createBSTfromPreorder(preorder);
+		TreeNode bsTfromPreorder = BST05_BSTfromPreOrder.createBSTfromPreorder(preorder);
 		BST05_BSTfromPreOrder.traverse(bsTfromPreorder);
 		System.out.println();
 		System.out.println(findKthSmallest(bsTfromPreorder, 1));
